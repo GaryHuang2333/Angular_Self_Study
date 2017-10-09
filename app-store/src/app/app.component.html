@@ -8,13 +8,48 @@
 <h2>Here are some links to help you start: </h2>
 <ul>
   <li>
-    <h2><a target="_blank" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
+    <h2>
+      <a target="_blank" href="https://angular.io/tutorial">Tour of Heroes</a>
+    </h2>
   </li>
   <li>
-    <h2><a target="_blank" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
+    <h2>
+      <a target="_blank" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a>
+    </h2>
   </li>
   <li>
-    <h2><a target="_blank" href="http://angularjs.blogspot.ca/">Angular blog</a></h2>
+    <h2>
+      <a target="_blank" href="http://angularjs.blogspot.ca/">Angular blog</a>
+    </h2>
   </li>
 </ul>
 
+<hr/>
+
+<h1>App Store</h1>
+<table border="1">
+  <tr>
+    <td>name</td>
+    <td>type</td>
+    <td>rating</td>
+  </tr>
+  <tr *ngFor="let game of games">
+    <td>{{game.name}}</td>
+    <td>{{game.type}}</td>
+    <td>{{game.rating}}</td>
+  </tr>
+</table>
+
+<div>
+  <h1>Data Binding</h1>
+  <h2>Interpolation</h2>
+  <p>My favourite app: {{favGame}}, Rating: {{getFavRating()}}</p>
+  <h2>event binding</h2>
+  <button (click)="changeFavImg()">Change Fav Img</button>
+  <h2>property binding </h2>
+  <div height="30px" >Fav Img<br><img [src]="favImg" ></div>
+  My Fav App<input [value]="favApp">&nbsp;<button (click)="changeFavApp()">Change Fav App</button>
+  <h2>two-way binding</h2>
+  <!-- Rating<input type="text" [(value)]="favSex">{{favSex}} -->
+  My Fav Game<input [(ngModel)]="favGame">{{favGame}}
+</div>

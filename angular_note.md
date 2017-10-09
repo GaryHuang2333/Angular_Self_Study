@@ -63,6 +63,32 @@ Here`s some java code:
 ![Angualr Architecture](https://angular.io/generated/images/guide/architecture/overview2.png)
 
 ## Template & Data binding
+### Displaying Data
+    templateUrl: './app.component.html'
+    styleUrls: ['./app.component.css']
+    {{myHero}} 
+    *ngFor
+    *ngIf
+### Template Syntax
+    Interpolation 
+        {{heroImageUrl}}
+        {{1 + 1 + getVal()}}
+    property binding 
+        [property]="expression"
+        [hidden]="isUnchanged"
+    event binding
+        (event)="statement"
+        (click)="deleteHero()"
+    two-way binding
+        [(target)]="expression"
+        
+    Statement context
+        $event
+        #heroForm
+
+
+
+
 ## Forms
 ## Bootstrapping
 ## NgModules
