@@ -53,3 +53,29 @@
   <!-- Rating<input type="text" [(value)]="favSex">{{favSex}} -->
   My Fav Game<input [(ngModel)]="favGame">{{favGame}}
 </div>
+<hr/>
+<div>
+  <h1>Diretive Test</h1>
+  <h2>*ngFor</h2>
+  <div *ngFor="let game of games">
+    <p>{{game.name}}</p>
+  </div>
+  <h2>*ngIf</h2>
+  <p *ngIf="games.length>3">There`s more than 3 Games</p>
+  <p *ngIf="games.length<=3">There`s no more than 3 Games</p>
+</div> 
+
+
+<div>
+<h1>malicious content </h1>
+<!--
+  Angular generates warnings for these two lines as it sanitizes them
+  WARNING: sanitizing HTML stripped some content (see http://g.co/ng/security#xss).
+ -->
+ <p><span>"{{evilTitle}}" is the <i>interpolated</i> evil title.</span></p>
+ <p>"<span [innerHTML]="evilTitle"></span>" is the <i>property bound</i> evil title.</p>
+</div>
+
+<div>
+    <!-- <tr><td colspan="{{1 + 1}}">Three-Four</td></tr> -->
+</div>
