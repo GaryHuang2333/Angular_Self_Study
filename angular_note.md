@@ -124,16 +124,35 @@ Here`s some java code:
     event binding
         (event)="statement"
             * statement-模板语句
-        (click)="deleteHero()"
+        <button (click)="onSave()">Save</button>
         <button on-click="onSave()">On Save</button>
             * Some people prefer the on- prefix alternative, known as the canonical form(规范形式)
         <div (myClick)="clickMessage=$event" clickable>click with myClick</div>
             * `myClick` is an event on the custom `ClickDirective`
+        $event 和事件处理语句
+            <input [value]="currentHero.name" (input)="currentHero.name=$event.target.value" >
+        使用 EventEmitter 实现自定义事件
+            子template
+                <button (click)="delete()">Delete</button>
+            子component
+                deleteRequest = new EventEmitter<Hero>();
+                delete() {this.deleteRequest.emit(this.hero);}
+            父template
+                <app-hero-detail (deleteRequest)="deleteHero($event)" [hero]="currentHero"></app-hero-detail>
+                * deleteRequest-子, hero-子, deleteHero-父, currentHero-父
 
     two-way binding
         [(target)]="expression"
-
-
+            * target-子properties, expression-父表达式
+        <app-sizer [(size)]="fontSizePx"></app-sizer> <div [style.font-size.px]="fontSizePx">Resizable Text</div>
+            * size-子 fontSizePx-父 fontSizePx-父
+        <app-sizer [size]="fontSizePx" (sizeChange)="fontSizePx=$event"></app-sizer>
+            * same as two-way binding
+        
+    Built-in directives 内置指令
+        attribute directives 属性型指令
+        structural directives 结构性指令
+    
     Statement context
         $event
         #heroForm
@@ -147,6 +166,115 @@ Here`s some java code:
 ## Dependency Injection
 ## HttpClient
 ## Routing & Navigation
+### 基础知识 
+1. <base href>元素(index.html)
+`
+<base href="/">
+`
+* 在`<head>` 里面加
+
+2. 从路由库中导入(app.module.ts)
+`
+import {RouterModule, Routes} from '@angualr/router';
+`
+
+3. 配置(app.module.ts)
+`
+const appRoutes: Routes = [
+  { path: 'crisis-center', component: CrisisListComponent },
+  { path: 'hero/:id',      component: HeroDetailComponent },
+  {
+    path: 'heroes',
+    component: HeroListComponent,
+    data: { title: 'Heroes List' }
+  },
+  { path: '',
+    redirectTo: '/heroes',
+    pathMatch: 'full'
+  },
+  { path: '**', component: PageNotFoundComponent }
+];
+
+@NgModule({
+  imports: [
+    RouterModule.forRoot(
+      appRoutes,
+      { enableTracing: true } // <-- debugging purposes only
+    )
+    // other imports here
+  ],
+  ...
+})
+export class AppModule { }
+`
+* path不能以斜杠（/）开头
+* 路由器使用先匹配者优先的策略来匹配路由
+
+4. 路由出口(HeroListComponent.html)
+`
+<router-outlet></router-outlet>
+<!-- Routed views go here -->
+`
+
+5. 路由器链接(app.component.ts)
+`
+  <h1>Angular Router</h1>
+  <nav>
+    <a routerLink="/crisis-center" routerLinkActive="active">Crisis Center</a>
+    <a routerLink="/heroes" routerLinkActive="active">Heroes</a>
+  </nav>
+  <router-outlet></router-outlet>
+`
+
+6. 路由器状态
+
+|OrderID|ProductName|ProductId|ProductPrice|
+|-------|:---------|:--------:|-----------:|
+|1       |Book      |231      |$54         |
+|2       |Noodle    |412      |$26         |
+|3       |Pure Water|164      |$30         |
+
+7. 激活的路由 ActivativedRoute
+|Property 属性|Description 描述|
+|:------------|:---------------|
+|url|路由路径的Observable对象，是一个由路由路径中的各个部分组成的字符串数组。|
+|data|一个Observable，其中包含提供给路由的data对象。也包含由解析守卫（resolve guard）解析而来的值。|
+|paramMap|一个Observable，其中包含一个由当前路由的必要参数和可选参数组成的map对象。用这个map可以获取来自同名参数的单一值或多重值。|
+|queryParamMap|一个Observable，其中包含一个对所有路由都有效的查询参数组成的map对象。 用这个map可以获取来自查询参数的单一值或多重值。|
+|fragment|An Observable of the URL fragment available to all routes.|
+|outlet|要把该路由渲染到的RouterOutlet的名字。对于无名路由，它的路由名是primary，而不是空串。|
+|routeConfig|用于该路由的路由配置信息，其中包含原始路径。|
+|parent|当该路由是一个子路由时，表示该路由的父级ActivatedRoute。|
+|firstChild|包含该路由的子路由列表中的第一个ActivatedRoute。|
+|children|包含当前路由下所有已激活的子路由。|
+
+8. 路由事件 Router.events
+|Router Event 路由器事件|Description 描述|
+|:------------|:---------------|
+|NavigationStart|本事件会在导航开始时触发。|
+|RoutesRecognized|本事件会在路由器解析完URL，并识别出了相应的路由时触发|
+|RouteConfigLoadStart|本事件会在Router对一个路由配置进行惰性加载之前触发。|
+|RouteConfigLoadEnd|本事件会在路由被惰性加载之后触发。|
+|NavigationEnd|本事件会在导航成功结束之后触发。|
+|NavigationCancel|本事件会在导航被取消之后触发。 这可能是因为在导航期间某个路由守卫返回了false。|
+|NavigationError|这个事件会在导航由于意料之外的错误而失败时触发。|
+
+9. 路由器中的关键词汇及其含义
+|路由器部件|含义|
+|:------------|:---------------|
+|Router（路由器）|为激活的URL显示应用组件。管理从一个组件到另一个组件的导航|
+|RouterModule（路由器模块）|一个独立的Angular模块，用于提供所需的服务提供商，以及用来在应用视图之间进行导航的指令。|
+|Routes（路由数组）|定义了一个路由数组，每一个都会把一个URL路径映射到一个组件。|
+|Route（路由）|定义路由器该如何根据URL模式（pattern）来导航到组件。大多数路由都由路径和组件类构成。|
+|RouterOutlet（路由出口）|该指令（<router-outlet>）用来标记出路由器该在哪里显示视图。|
+|RouterLink（路由链接）|该指令用来把一个可点击的HTML元素绑定到路由。点击带有绑定到字符串或链接参数数组的routerLink指令的元素就会触发一次导航。|
+|RouterLinkActive（活动路由链接）|当HTML元素上或元素内的routerLink变为激活或非激活状态时，该指令为这个HTML元素添加或移除CSS类。|
+|ActivatedRoute（激活的路由）|为每个路由组件提供提供的一个服务，它包含特定于路由的信息，比如路由参数、静态数据、解析数据、全局查询参数和全局碎片（fragment）。|
+|RouterState（路由器状态）|路由器的当前状态包含了一棵由程序中激活的路由构成的树。它包含一些用于遍历路由树的快捷方法。|
+|链接参数数组(Link parameters array)|这个数组会被路由器解释成一个路由操作指南。我们可以把一个RouterLink绑定到该数组，或者把它作为参数传给Router.navigate方法。|
+|路由组件(Routing component)|一个带有RouterOutlet的Angular组件，它根据路由器的导航来显示相应的视图。|
+
+
 ## Testing
 ## Cheat Sheet
 

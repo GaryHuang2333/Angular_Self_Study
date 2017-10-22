@@ -1,0 +1,17 @@
+<hr>
+<div>
+  <h3>game-detail 1</h3>
+  <p>Name-{{game.name}};&nbsp;&nbsp;&nbsp;&nbsp;Type-{{game.type}}&nbsp;&nbsp;&nbsp;&nbsp;Rating-{{game.rating}}</p>
+  <button (click)="changeGame()">Change to currentGame</button>
+  <button on-click="emit1()">emit1 currentGame</button>
+  <button on-click="emit2()">emit2 currentNumber</button>
+</div>
+<div>
+  <h3>game-detail 2</h3>
+  <p>currentGame : Name-{{currentGame.name}};&nbsp;&nbsp;&nbsp;&nbsp;Type-{{currentGame.type}}&nbsp;&nbsp;&nbsp;&nbsp;Rating-{{currentGame.rating}}</p>
+  <p>currentNumber : {{currentNumber}}</p>
+  <button (click)="changeCurrentGame()">Change currentGame</button>
+  <button (click)="changeCurrentNumber()">Change currentNumber</button>
+  <button></button>
+</div>
+<hr>

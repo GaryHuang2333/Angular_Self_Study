@@ -24,7 +24,7 @@
   </li>
 </ul>
 
-<hr/>
+<br/><hr><br/>
 
 <h1>App Store</h1>
 <table border="1">
@@ -48,12 +48,12 @@
   <button (click)="changeFavImg()">Change Fav Img</button>
   <h2>property binding </h2>
   <div height="30px" >Fav Img<br><img [src]="favImg" ></div>
-  My Fav App<input [value]="favApp">&nbsp;<button (click)="changeFavApp()">Change Fav App</button>
+  My Fav App<input [value]="favAppName">&nbsp;<button (click)="changefavAppName()">Change Fav App</button>
   <h2>two-way binding</h2>
   <!-- Rating<input type="text" [(value)]="favSex">{{favSex}} -->
   My Fav Game<input [(ngModel)]="favGame">{{favGame}}
 </div>
-<hr/>
+<br/><hr><br/>
 <div>
   <h1>Diretive Test</h1>
   <h2>*ngFor</h2>
@@ -75,7 +75,65 @@
  <p><span>"{{evilTitle}}" is the <i>interpolated</i> evil title.</span></p>
  <p>"<span [innerHTML]="evilTitle"></span>" is the <i>property bound</i> evil title.</p>
 </div>
-
+<br/><hr><br/>
 <div>
     <!-- <tr><td colspan="{{1 + 1}}">Three-Four</td></tr> -->
 </div>
+<br/><hr><br/>
+<div>
+  Before : currentApp - <input [value]="currentApp.name"
+  (input)="currentApp.name=$event.target.value" ><br/>
+  After : currentApp - {{currentApp.name}}<br/>
+  <button on-click="changeCurrentApp()">Change currentApp to 元气骑士</button><br/>
+  <!-- <input bind-value={{inputfavAppName}} on-input="changeInputfavAppName($event)"/> -->
+  {{favAppName}}<input bind-value="inputfavAppName" on-input="favAppName = $event.target.value"/><br/>
+  {{favAppName}}<input [value]="inputfavAppName" (input)="favAppName=$event.target.value" >
+</div>
+
+<h1>$event</h1>
+<app-game-detail (myRequest)="emitGame=$event" (myRequest2)="emitNumber=$event" [currentGame]="currentGame" [currentNumber]="currentNumber" >game-detail component error</app-game-detail>
+<div>emitGame : Name-{{emitGame.name}};&nbsp;&nbsp;&nbsp;&nbsp;Type-{{emitGame.type}}&nbsp;&nbsp;&nbsp;&nbsp;Rating-{{emitGame.rating}}</div>
+<div>emitNumber : {{emitNumber}}</div>
+
+currentGame p
+currentGame c
+currentNumber p
+currentNumber c
+myRequest c
+myRequest c2
+emitGame p
+emitNumber p
+
+<app-game-detail (myRequest)="currentGame=$event" (myRequest2)="currentNumber=$event" [currentGame]="currentGame" [currentNumber]="currentNumber" >game-detail component error</app-game-detail>
+<div>currentGame : Name-{{currentGame.name}};&nbsp;&nbsp;&nbsp;&nbsp;Type-{{currentGame.type}}&nbsp;&nbsp;&nbsp;&nbsp;Rating-{{currentGame.rating}}</div>
+<div>currentNumber : {{currentNumber}}</div>
+
+<h1>two-way binding</h1>
+<app-game-detail  [(currentGame)]="currentGame" >game-detail component error</app-game-detail>
+<div>currentGame : Name-{{currentGame.name}};&nbsp;&nbsp;&nbsp;&nbsp;Type-{{currentGame.type}}&nbsp;&nbsp;&nbsp;&nbsp;Rating-{{currentGame.rating}}</div>
+<hr>
+<h1>same as two-way binding</h1>
+<app-game-detail  [currentGame]="currentGame" (xxxx)="currentGame=$event">game-detail component error</app-game-detail>
+<div>currentGame : Name-{{currentGame.name}};&nbsp;&nbsp;&nbsp;&nbsp;Type-{{currentGame.type}}&nbsp;&nbsp;&nbsp;&nbsp;Rating-{{currentGame.rating}}</div>
+<hr>
+
+<hr><hr><hr><hr><hr><hr>
+<h1>Built-in directives 内置指令</h1>
+<h2>attribute directives 属性型指令</h2>
+<h3>ngClass</h3>
+<div [ngClass]="{'first': true, 'second': true, 'third': true}">云库前端true true true</div>
+<div [ngClass]="{'first': true, 'second': false, 'third': false}">云库前端true false false</div>
+<div [ngClass]="{'first': false, 'second': true, 'third': false}">云库前端false true false</div>
+first:font-size ; 
+second:color ; 
+third:font-weight ; 
+<div [class.first]="isFirst">Same as ngClass --- first : {{isFirst}}</div>
+<h3>ngStyle</h3>
+<div [style.font-size]="isSpecial ? 'x-large' : 'smaller'" >This div is x-large or smaller.</div>
+<div [ngStyle]="currentStyles">This div is initially italic, normal weight, and extra large (24px).</div>
+<h3>ngModel</h3> 
+&lt;input&gt; currentGame.name:{{currentGame.name}} <input [(ngModel)]="currentGame.name"><br>
+&lt;div&gt; <div [(ngModel)]="currentGame.name" >currentGame.name:{{currentGame.name}}</div><br>
+<h2>structural directives 结构性指令</h2>
+
+
