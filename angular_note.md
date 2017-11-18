@@ -57,6 +57,7 @@ Here`s some java code:
 1. npm install -g @angular/cli
 2. ng new my-app
 3. cd my-app, ng serve --open
+4. ng generate component component-name
 
 # Angular Study (From http://angular.io)
 ## Architecture
@@ -80,8 +81,8 @@ Here`s some java code:
         [property]="expression"
             * expression-模板表达式， property-目标属性(not attribute)
         [hidden]="isUnchanged"
-        <img [src]="heroImageUrl">
             * isUnchanged-组件属性, hidden-模板标签属性
+        <img [src]="heroImageUrl">
         <img bind-src="heroImageUrl">
             * Some people prefer the bind- prefix alternative, known as the canonical form(规范形式)
         <app-hero-detail [hero]="currentHero"></app-hero-detail>
@@ -151,8 +152,35 @@ Here`s some java code:
         
     Built-in directives 内置指令
         attribute directives 属性型指令
+            NgClass - 添加或移除一组CSS类
+            NgStyle - 添加或移除一组CSS样式
+            NgModel - 双向绑定到HTML表单元素
+
         structural directives 结构性指令
-    
+            NgIf
+                <div *ngIf="currentHero">Hello, {{currentHero.name}}</div>
+                <div *ngIf="nullHero">Hello, {{nullHero.name}}</div>
+                    * 防范空指针错误, currentHero&nullHero -> 父
+            NgFor
+                <div *ngFor="let hero of heroes">{{hero.name}}</div>
+                <div *ngFor="let hero of heroes; let i=index">{{i + 1}} - {{hero.name}}</div>
+                    * 带索引的ngFor
+                带trackBy的*ngFor
+                    app.component.ts
+                     trackByHeroes(index: number, hero: Hero): number { return hero.id; }
+                    app.component.html
+                     <div *ngFor="let hero of heroes; trackBy: trackByHeroes">({{hero.id}}) {{hero.name}}</div>
+            NgSwitch
+                <div [ngSwitch]="currentHero.emotion">
+                    <app-happy-hero    *ngSwitchCase="'happy'"    [hero]="currentHero"></app-happy-hero>
+                    <app-sad-hero      *ngSwitchCase="'sad'"      [hero]="currentHero"></app-sad-hero>
+                    <app-confused-hero *ngSwitchCase="'confused'" [hero]="currentHero"></app-confused-hero>
+                    <app-unknown-hero  *ngSwitchDefault           [hero]="currentHero"></app-unknown-hero>
+                </div>
+                    * 本例子中的emotion是个字符串，但实际上这个候选值可以是任意类型。
+                    * 绑定到[ngSwitch]。如果试图用*ngSwitch的形式使用它就会报错，这是因为NgSwitch是一个属性型指令，而不是结构型指令。 它要修改的是所在元素的行为，而不会直接接触DOM结构。
+
+
     Statement context
         $event
         #heroForm
@@ -274,7 +302,28 @@ export class AppModule { }
 |链接参数数组(Link parameters array)|这个数组会被路由器解释成一个路由操作指南。我们可以把一个RouterLink绑定到该数组，或者把它作为参数传给Router.navigate方法。|
 |路由组件(Routing component)|一个带有RouterOutlet的Angular组件，它根据路由器的导航来显示相应的视图。|
 
-
+10. 模块化路由配置
+	--> router example
+	AppModule(
+		imports HeroesModule(
+			imports HeroRoutingModule(forChild), 
+			declarations HeroListComponent, 
+			declarations HeroDetailComponent
+		),
+		imports AppRoutingModule(forRoot)
+	)
+	
+	--> admin-app
+	AppModule(
+		imports UsersModule(
+			imports HeroRoutingModule(forChild), 
+			declarations HeroListComponent, 
+			declarations HeroDetailComponent
+		),
+		imports AppRoutingModule(forRoot)
+	)
+					
+	
 ## Testing
 ## Cheat Sheet
 

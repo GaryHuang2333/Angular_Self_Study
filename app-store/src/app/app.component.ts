@@ -12,7 +12,9 @@ export class AppComponent {
     new Game('王者荣耀', 'game', 5),
     new Game('Candy Crush', 'game', 2),
     new Game('阴阳师', 'game', 3),
-    new Game('元气骑士', 'game', 3),
+    new Game('元气骑士', 'game', 1),
+    new Game('天天消除', 'game', 3),
+    new Game('流言侦探', 'game', 4),
   ];
   evilTitle = 'Template <script>alert("evil never sleeps")</script>Syntax';
   currentApp = this.games[0];
@@ -36,7 +38,7 @@ export class AppComponent {
   imgUrl5 = '../assets/westernworld.jpeg';
   imgs = [this.imgUrl1, this.imgUrl2, this.imgUrl3, this.imgUrl4, this.imgUrl5];
   favImg = this.imgs[0];
-
+  ngIfInd = true;
   currentClasses: {};
   isFirst = true;
   isSpecial = true;

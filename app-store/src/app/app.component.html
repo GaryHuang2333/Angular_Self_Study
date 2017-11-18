@@ -63,7 +63,7 @@
   <h2>*ngIf</h2>
   <p *ngIf="games.length>3">There`s more than 3 Games</p>
   <p *ngIf="games.length<=3">There`s no more than 3 Games</p>
-</div> 
+</div>
 
 
 <div>
@@ -124,16 +124,28 @@ emitNumber p
 <div [ngClass]="{'first': true, 'second': true, 'third': true}">云库前端true true true</div>
 <div [ngClass]="{'first': true, 'second': false, 'third': false}">云库前端true false false</div>
 <div [ngClass]="{'first': false, 'second': true, 'third': false}">云库前端false true false</div>
-first:font-size ; 
-second:color ; 
-third:font-weight ; 
+first:font-size ;
+second:color ;
+third:font-weight ;
 <div [class.first]="isFirst">Same as ngClass --- first : {{isFirst}}</div>
 <h3>ngStyle</h3>
 <div [style.font-size]="isSpecial ? 'x-large' : 'smaller'" >This div is x-large or smaller.</div>
 <div [ngStyle]="currentStyles">This div is initially italic, normal weight, and extra large (24px).</div>
-<h3>ngModel</h3> 
+<h3>ngModel</h3>
 &lt;input&gt; currentGame.name:{{currentGame.name}} <input [(ngModel)]="currentGame.name"><br>
 &lt;div&gt; <div [(ngModel)]="currentGame.name" >currentGame.name:{{currentGame.name}}</div><br>
 <h2>structural directives 结构性指令</h2>
-
+<h3>ngIf</h3>
+<span>ngIfInd: <p *ngIf="ngIfInd">{{ngIfInd}}</p></span>
+<h3>ngFor &amp; ngSwitch</h3>
+<div *ngFor="let game of games; let ind=index">
+  Name:{{game.name}} {{ind}}
+  <div [ngSwitch]="game.rating">
+    <p *ngSwitchCase="1">worst game</p>
+    <p *ngSwitchCase="2">bad game</p>
+    <p *ngSwitchCase="3">normal game</p>
+    <p *ngSwitchCase="4">good game</p>
+    <p *ngSwitchCase="5">excellent game</p>
+  </div>
+</div>
 
