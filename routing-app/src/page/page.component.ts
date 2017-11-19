@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-page',
-  template: `<p>PageComponent</p>`,
+  templateUrl: './page.component.html',
 })
 export class PageComponent {
 }

@@ -12,8 +12,8 @@ import { PageNotFoundComponent } from './page-not-found.component';
 
 @NgModule({
   declarations: [AppComponent, PageNotFoundComponent ],
-  // imports: [BrowserModule, HeroModule, CrisisModule, HomeModule, PageModule, AppRoutingModule],
-  imports: [BrowserModule, AppRoutingModule],
+  imports: [BrowserModule, HeroModule, CrisisModule, HomeModule, PageModule, AppRoutingModule],
+  // imports: [BrowserModule, AppRoutingModule],
   // 注意，AppRoutingModule是最后一个
   providers: [],
   bootstrap: [AppComponent]
