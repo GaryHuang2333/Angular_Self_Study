@@ -9,7 +9,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 // lazy load
 const homeRoutes: Routes = [
-  { path: '', component: HomeComponent },
+  { path: '', component: HomeComponent},
 ];
 
 @NgModule({

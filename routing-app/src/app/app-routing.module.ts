@@ -4,20 +4,20 @@ import { PageNotFoundComponent } from './page-not-found.component';
 
 // // Success Routes of not lazy load
 // const appRoutes: Routes = [
-//   { path: '', redirectTo: '/hero', pathMatch: 'full'},
-//   { path: '**', component: PageNotFoundComponent }
+//   // { path: '', redirectTo: 'hero', pathMatch: 'full'},
+//   { path: 'xxx', component: PageNotFoundComponent }
 // ];
 
-// lazy load
+// Success lazy load
 const appRoutes: Routes = [
-  // { path: '', children: [] },
-  { path: '', redirectTo: '/crisis', pathMatch: 'full'},
-  { path: 'crisis', loadChildren: './crisis/crisis.module#CrisisModule' },
-  { path: '**', component: PageNotFoundComponent },
+  { path: '', redirectTo: 'hero', pathMatch: 'full'},
+  { path: 'hero', loadChildren: './hero/heroes.module#HeroModule' },
+  { path: 'crisis', loadChildren: 'app/crisis/crisis.module#CrisisModule' },
+  { path: 'home', loadChildren: 'app/home/home.module#HomeModule' },
+  { path: 'page', loadChildren: '../page/page.module#PageModule' },
+  { path: 'xxx', component: PageNotFoundComponent },
 ];
-// { path:'home', loadChildren:'app/home/home.module#HomeModule' }
-
-@NgModule({
+@NgModule ({
   imports: [RouterModule.forRoot(appRoutes)],
   exports: [RouterModule],
 })
