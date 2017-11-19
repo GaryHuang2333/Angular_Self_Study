@@ -322,7 +322,8 @@ export class AppModule { }
 		),
 		imports AppRoutingModule(forRoot)
 	)
-					
+		
+* 如果你在惰性加载模块中导入BrowserModule，Angular就会抛出一个错误。		
 	
 ## Testing
 ## Cheat Sheet
