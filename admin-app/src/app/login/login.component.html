@@ -1,1 +1,61 @@
-<h1>Login Page</h1>
+<div class="login-bk">
+    <div>
+      <div class="login-logo">
+        <a href="#"><b>Demo</b>Login</a>
+      </div>
+      <p class="login-box-msg">Sign in to start your application</p>
+    </div>
+
+    <div class="login-form">
+      <div class="login-box">
+        <!-- Application Logo -->
+        <div class="login-box-body">
+          <form [formGroup]='formModel'>
+            <!-- User account -->
+            <div class="form-group has-feedback">
+              <input formControlName="loginName" type="text" class="form-control userac-design" placeholder="Account ID">
+
+              <div [hidden]="formModel.get('loginName').valid || formModel.get('loginName').untouched">
+                <div class="noticeMsg" [hidden]="!formModel.hasError('required','loginName')">Please input your account</div>
+              </div>
+
+              <span class="glyphicon glyphicon-user form-control-feedback"></span>
+            </div>
+
+            <!-- User password -->
+            <div class="form-group has-feedback">
+              <input formControlName="loginPasswd" type="password" class="form-control userpwd-design" placeholder="Password">
+
+              <div [hidden]="formModel.get('loginPasswd').valid || formModel.get('loginName').pristine">
+                <div class="noticeMsg" [hidden]="!formModel.hasError('required', 'loginPasswd') || formModel.get('loginPasswd').pristine">
+                  Please input your password
+                </div>
+              </div>
+
+              <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+            </div>
+
+            <!-- Rememeber me -->
+            <div class="row">
+              <div class="col-xs-8">
+                <div class="checkbox">
+                  <label>
+                    <input formControlName="remFlag" type="checkbox">
+                    <span class="checkbox_text">Remember me</span>
+                  </label>
+                </div>
+              </div>
+
+              <div class="col-xs-4">
+                <button type="submit" (click)="doSubmit()" class="btn btn-default btn-block btn-flat btn_design">Sign In</button>
+              </div>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+    <p class="cr-footer">Copyright © 2017 广州天河区DemoLogin有限公司 All Reserved.粤ICP备88888888号 </p>
+  </div>
+
+
